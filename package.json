@@ -1,0 +1,24 @@
+{
+  "name": "emi-push-notifications",
+  "version": "0.0.1",
+  "description": "Web Push Notifications Demo ",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "web-push": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "web",
+    "push",
+    "notifications"
+  ],
+  "author": "ecris87",
+  "license": "ISC"
+}
