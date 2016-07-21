@@ -3,7 +3,6 @@ public/manifest.json
 
 # Dependency directories
 node_modules
-jspm_packages
 
 # Caches
 .npm
