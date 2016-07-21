@@ -1,0 +1,9 @@
+# Private data
+public/manifest.json
+
+# Dependency directories
+node_modules
+jspm_packages
+
+# Optional npm cache directory
+.npm
