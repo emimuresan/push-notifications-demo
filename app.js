@@ -17,6 +17,10 @@ const app = express();
 
 console.log('--------- SERVER ---------');
 
+if (!GCM_KEY) {
+    console.log('Error: An environment variable with the Google Cloud Messaging API key is required');
+}
+
 const httpServer = http.createServer(app);
 // let httpsServer = https.createServer(credentials, app);
 
