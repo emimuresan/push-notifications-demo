@@ -1,43 +1,47 @@
 console.log('--------- INDEX ---------');
 
+const SERVICE_WORKER = 'service-worker.js';
 let endpoint;
+
+const getSubscriptionsPromise = function getSubscriptionsPromise(registration) {
+    // Use the PushManager to get the user's subscription to the push service.
+    return registration.pushManager.getSubscription()
+        .then(function(subscription) {
+            if (subscription) {
+                return subscription;
+            }
+            return registration.pushManager.subscribe({userVisibleOnly: true});
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+};
+
+const sendSubscriptionDetails = function sendSubscriptionDetails(subscription) {
+    endpoint = subscription.endpoint;
+
+    document.getElementById('notification-channel').textContent = endpoint;
+
+    // Send the subscription details to the server using the Fetch API.
+    fetch('./register', {
+        method: 'post',
+        headers: {
+            'Content-type': 'application/json',
+            'Content-length': 32
+        },
+        body: JSON.stringify({
+            endpoint: subscription.endpoint
+        })
+    });
+};
 
 // Register a Service Worker.
 if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
 
-    navigator.serviceWorker.register('service-worker.js')
-        .then(function(registration) {
-
-// Use the PushManager to get the user’s subscription to the push service.
-            return registration.pushManager.getSubscription()
-                .then(function(subscription) {
-                    if (subscription) {
-                        return subscription;
-                    }
-                    return registration.pushManager.subscribe({userVisibleOnly: true});
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
-        })
-        .then(function(subscription) {
-            endpoint = subscription.endpoint;
-
-            document.getElementById('notification-channel').textContent = endpoint;
-
-// Send the subscription details to the server using the Fetch API.
-            fetch('./register', {
-                method: 'post',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Content-length': 32
-                },
-                body: JSON.stringify({
-                    endpoint: subscription.endpoint
-                })
-            });
-        });
+    navigator.serviceWorker.register(SERVICE_WORKER)
+        .then(getSubscriptionsPromise)
+        .then(sendSubscriptionDetails);
 
     document.getElementById('notification-send-button').onclick = function() {
         let delay = document.getElementById('notification-delay').value;

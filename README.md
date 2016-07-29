@@ -11,12 +11,11 @@ Start:
 nodemon app.js
 ```
 
-Note: manifest.json not included, see links below.
-
 Helpful links:
 * https://console.cloud.google.com/start (to create a project and get a GCM_API_KEY)
 * https://developers.google.com/web/fundamentals/getting-started/push-notifications/?hl=en
 * https://serviceworke.rs/push-simple.html
+* https://notifications.spec.whatwg.org
 
 Awesome talk on Deep Engagement with Push Notifications:
 * https://youtu.be/Zq-tRtBN3ws

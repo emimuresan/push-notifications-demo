@@ -11,6 +11,7 @@
 
 body {
     background: #ffffff;
+    margin: 50px 40px;
 }
 
 body, input, select, textarea {
