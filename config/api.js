@@ -10,6 +10,9 @@ module.exports = function(express, GCM_KEY) {
     // Set Google Cloud Messaging API key which is matched against gcm_sender_id from manifest.json
     webPush.setGCMAPIKey(GCM_KEY);
 
+    /**
+     *  REGISTER
+     */
     router.route('/register').post((req, res) => {
         console.log('endpoint hit: register');
 
@@ -17,13 +20,16 @@ module.exports = function(express, GCM_KEY) {
         res.sendStatus(201);
     });
 
+    /**
+     *  SEND NOTIFICATION
+     */
     router.route('/sendNotification').post((req, res) => {
         console.log('endpoint hit: sendNotification');
 
         setTimeout(() => {
             webPush.sendNotification(req.query.endpoint, {
-                TTL: req.query.ttl
-            })
+                    TTL: req.query.ttl
+                })
                 .then(() => {
                     res.sendStatus(201);
                 });

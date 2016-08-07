@@ -7,9 +7,11 @@ const getSubscriptionsPromise = function getSubscriptionsPromise(registration) {
     // Use the PushManager to get the user's subscription to the push service.
     return registration.pushManager.getSubscription()
         .then(function(subscription) {
+            // Cache hit - return response
             if (subscription) {
                 return subscription;
             }
+            console.log('Subscribed!');
             return registration.pushManager.subscribe({userVisibleOnly: true});
         })
         .catch(function(err) {
@@ -39,6 +41,8 @@ const sendSubscriptionDetails = function sendSubscriptionDetails(subscription) {
 if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
 
+    // A service worker has a lifecycle which is completely separate from your web page.
+    // Registering a service worker will cause the browser to start the service worker install step in the background.
     navigator.serviceWorker.register(SERVICE_WORKER)
         .then(getSubscriptionsPromise)
         .then(sendSubscriptionDetails);

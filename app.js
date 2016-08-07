@@ -1,5 +1,4 @@
 const express = require('express');
-const api = require('./config/api.js');
 const path = require('path');
 const GCM_KEY = process.env.GCM_API_KEY;
 const port = {
@@ -12,6 +11,8 @@ const https = require('https');
 // const privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
 // const certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
 // const credentials = {key: privateKey, cert: certificate};
+
+const api = require('./config/api.js');
 const app = express();
 
 
